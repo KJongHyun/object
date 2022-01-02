@@ -1,2 +1,5 @@
-package com.example.moviereservateservice.domain 
+package com.example.moviereservateservice.domain
 
+class Customer {
+
+}
