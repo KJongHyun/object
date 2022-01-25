@@ -2,14 +2,11 @@ package com.example.moviereservateservice.domain
 
 import java.time.Duration
 
-class Movie(
+abstract class Movie(
     private val title: String,
     private val runningTime: Duration,
-    private val fee: Money,
-    private val discountConditions: List<DiscountCondition>,
-    private val movieTye: MovieType,
-    private val discountAmount: Money,
-    private val discountPercent: Double
+    protected val fee: Money,
+    private val discountConditions: List<DiscountCondition>
 ) {
 
     fun calculateMovieFee(screening: Screening): Money {
@@ -20,29 +17,5 @@ class Movie(
         return discountConditions.any { it.isSatisfiedBy(screening) }
     }
 
-    private fun calculateDiscountAmount(): Money {
-        return when (movieTye) {
-            MovieType.AMOUNT_DISCOUNT -> calculateAmountDiscountAmount()
-            MovieType.PERCENT_DISCOUNT -> calculatePercentDiscountAmount()
-            MovieType.NONE_DISCOUNT -> calculateNoneDiscountAmount()
-        }
-    }
-
-    private fun calculateAmountDiscountAmount(): Money {
-        return discountAmount
-    }
-
-    private fun calculatePercentDiscountAmount(): Money {
-        return fee.times(discountPercent)
-    }
-
-    private fun calculateNoneDiscountAmount(): Money {
-        return Money.ZERO
-    }
-}
-
-enum class MovieType {
-    AMOUNT_DISCOUNT,
-    PERCENT_DISCOUNT,
-    NONE_DISCOUNT
+    protected abstract fun calculateDiscountAmount(): Money
 }

@@ -1,7 +1,5 @@
 package com.example.moviereservateservice.domain
 
-import jdk.jfr.Percentage
-
 class Money {
     companion object {
         val ZERO = Money()
@@ -11,7 +9,7 @@ class Money {
         TODO("Not yet implemented")
     }
 
-    fun times(percentage: Percentage): Money {
+    fun times(percentage: Double): Money {
         TODO("Not yet implemented")
     }
 
